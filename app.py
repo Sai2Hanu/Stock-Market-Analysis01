@@ -1,13 +1,19 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
 import joblib
-from datetime import datetime
+
 st.subheader("Future Stock Price Forecast")
+
 # Load saved SARIMAX model
 @st.cache_resource
-def load_model():
-    return joblib.load("/content/linear_regression_aapl.pkl")
+def load_model(model_path):
+    try:
+        return joblib.load(model_path)
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+        return None
 
+model = load_model("/content/linear_regression_aapl.pkl")
 
-model = load_model()
+if model:
+    # Add further processing and visualization here
+    pass
